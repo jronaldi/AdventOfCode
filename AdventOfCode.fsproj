@@ -1,0 +1,103 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Common\ParseInputFile.fs" />
+    <Compile Include="Common\NormalizeInput.fs" />
+    <Compile Include="2023\Dec2023_01.fs" />
+    <Content Include="2023\Dec2023_01A_Test.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Include="2023\Dec2023_01A.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Include="2023\Dec2023_01B_Test.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="2023\Dec2023_02.fs" />
+    <Content Include="2023\Dec2023_02A_Test.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Include="2023\Dec2023_02A.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="2023\Dec2023_03.fs" />
+    <Content Include="2023\Dec2023_03A.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Include="2023\Dec2023_03A_Test.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <None Include="TestScript.fsx" />
+    <Compile Include="2022\Dec2022_08.fs" />
+    <Content Include="2022\Dec2022_08.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Include="2022\Dec2022_08_Test.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="2022\Dec2022_07.fs" />
+    <Content Include="2022\Dec2022_07.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Include="2022\Dec2022_07_Test.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="2022\Dec2022_06.fs" />
+    <Content Include="2022\Dec2022_06.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Include="2022\Dec2022_06_Test.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Include="2022\Dec2022_05.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Include="2022\Dec2022_05_Test.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="2022\Dec2022_05.fs" />
+    <Compile Include="2022\Dec2022_04B.fs" />
+    <Content Include="2022\Dec2022_04.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Include="2022\Dec2022_04_Test.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="2022\Dec2022_04A.fs" />
+    <Compile Include="2022\Dec2022_03B.fs" />
+    <Compile Include="2022\Dec2022_Template.fs" />
+    <Compile Include="2022\Dec2022_03A.fs" />
+    <Compile Include="2022\Dec2022_02B.fs" />
+    <Compile Include="2022\Dec2022_02A.fs" />
+    <Compile Include="2022\Dec2022_01A.fs" />
+    <Content Include="2022\Dec2022_03A_Test.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Include="2022\Dec2022_03A.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Include="2022\Dec2022_02A.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Include="2022\Dec2022_02A_Test.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Include="2022\Dec2022_01A_Test.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Include="2022\Dec2022_01A.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FParsec" Version="1.1.1" />
+  </ItemGroup>
+
+</Project>
