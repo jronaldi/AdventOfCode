@@ -20,7 +20,7 @@ type PartNumberInfo = { partLocations : Location list; partNumber : int32 }
 
 type GridItemCoords = 
     | NUMBER of colFirst : int * colLast : int * line : int * value : int32
-    | SYMBOL of col : int * line : int
+    | SYMBOL of col : int * line : int * symb : char
     | DOT of col : int * line : int
 
 let isSymbol (c : char) : bool =
@@ -30,12 +30,12 @@ let findAllItemsCoords (sourceData : string) =
 
     let myDotParser : Parser<GridItemCoords,unit> = 
         fun stream -> 
-            FParsec.Reply((int(stream.Column)-2,int(stream.Line)) |> DOT)
+            FParsec.Reply((int(stream.Column)-2,int(stream.Line)-1) |> DOT)
 
     let Dots = (pchar '.') >>. myDotParser .>> spaces
 
     let mySymbolParser : Parser<GridItemCoords,unit> = 
-        fun stream -> FParsec.Reply((int(stream.Column)-2,int(stream.Line)) |> SYMBOL)
+        fun stream -> FParsec.Reply((int(stream.Column)-2,int(stream.Line)-1, stream.Peek(-1)) |> SYMBOL)
 
     let SymbolItem = satisfy (fun c -> isSymbol (c)) >>. mySymbolParser .>> spaces
 
@@ -50,7 +50,7 @@ let findAllItemsCoords (sourceData : string) =
                 new string([|for x in [offset+1..-1] -> stream.Peek(x)|])
                 |> int32
             
-            FParsec.Reply((int(stream.Column)-numberLength,int(stream.Column)-2,int(stream.Line),partNumber) |> NUMBER)
+            FParsec.Reply((int(stream.Column)-numberLength,int(stream.Column)-2,int(stream.Line)-1,partNumber) |> NUMBER)
 
     let NumberItem : Parser<GridItemCoords,unit> = 
         (many1SatisfyL isDigit "NumberItem") >>. myPartNumberParser
@@ -67,7 +67,7 @@ let CalculateSumOfValidPartNumbers (rawSchematicData:GridItemCoords list) =
         |> List.choose 
             (fun x -> 
                 match x with
-                | SYMBOL (col, line) -> Some {x=col; y=line}
+                | SYMBOL (col, line, _) -> Some {x=col; y=line}
                 | _ -> None
                 )
         |> Set
@@ -120,7 +120,67 @@ let public SolvePuzzleA() =
     |> findAllItemsCoords
     |> CalculateSumOfValidPartNumbers
 
+let starsWithTwoPartNumbers (rawSchematicData:GridItemCoords list) = 
+
+    let extractStarSymbolLocations (rawSchematicData:GridItemCoords list) =
+        rawSchematicData
+        |> List.choose 
+            (fun x -> 
+                match x with
+                | SYMBOL (col, line, symb) when symb = '*' -> Some {x=col; y=line}
+                | _ -> None
+                )
+    
+    let extractPartsInfo (rawSchematicData:GridItemCoords list) : PartNumberInfo list =
+        rawSchematicData
+        |> List.choose 
+            (fun x -> 
+                match x with
+                | NUMBER (colFirst,colLast,line,value) -> 
+                    let parsedPartNumber = 
+                        { 
+                            partLocations = [for x in [colFirst..colLast] -> {Location.x=x;Location.y=line}];
+                            partNumber = value;
+                        }
+                    Some parsedPartNumber
+                | _ -> None
+                )
+
+    let symbolOffsets = [(-1,-1); (-0,-1); (+1,-1);
+                         (-1, 0);          (+1, 0);
+                         (-1,+1); (-0,+1); (+1,+1)]
+
+    // For all stars
+    //  Find all adjacent part numbers
+    //      
+
+    let validatePartNumberAtOffset (partInfo:PartNumberInfo) (testedPartNumberLoc:Location) : int32 option =
+        List.exists (fun partLoc -> partLoc = testedPartNumberLoc) partInfo.partLocations
+            |> (fun exists -> 
+                if exists then Some partInfo.partNumber 
+                else None)
+
+    let testAllAdjacentSymbolPositions (starLocation:Location) (partInfo:PartNumberInfo)  = 
+        symbolOffsets 
+        |> List.map
+            (fun (xOffset, yOffset) -> {x=starLocation.x + xOffset; y=starLocation.y + yOffset})
+        |> List.choose (validatePartNumberAtOffset partInfo)
+
+    let validateExistsTwoAdjacentPartNumbers (partInfos:PartNumberInfo list) (starLocation:Location) =
+         
+        let calculateGearRatio (gears:int32 list) = gears.Head * gears.Tail.Head
+
+        List.collect (testAllAdjacentSymbolPositions starLocation) partInfos
+        |> List.distinct
+        |> (fun matches -> if matches.Length = 2 then Some (calculateGearRatio matches) else None)
+
+    let partInfos = extractPartsInfo rawSchematicData
+    extractStarSymbolLocations rawSchematicData
+    |> List.choose (validateExistsTwoAdjacentPartNumbers partInfos)
+    |> List.sum
+
 let public SolvePuzzleB() =
-    //GetNormalizedInputData($"""{__SOURCE_DIRECTORY__}/2023/Dec2023_03A_Test.txt""")
-    //GetNormalizedInputData($"""{__SOURCE_DIRECTORY__}/2023/Dec2023_03A.txt""")
-    ()
+    //GetNormalizedInputData($"""{__SOURCE_DIRECTORY__}/Dec2023_03A_Test.txt""")
+    GetNormalizedInputData($"""{__SOURCE_DIRECTORY__}/Dec2023_03A.txt""")
+    |> findAllItemsCoords
+    |> starsWithTwoPartNumbers
