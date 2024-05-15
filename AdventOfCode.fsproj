@@ -32,6 +32,13 @@
     <Content Include="2023\Dec2023_03A_Test.txt">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
+    <Compile Include="2023\Dec2023_04.fs" />
+    <Content Include="2023\Dec2023_04A.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Include="2023\Dec2023_04A_Test.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
     <None Include="TestScript.fsx" />
     <Compile Include="2022\Dec2022_08.fs" />
     <Content Include="2022\Dec2022_08.txt">
