@@ -6,8 +6,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Common\sscanf.fs" />
     <Compile Include="Common\ParseInputFile.fs" />
     <Compile Include="Common\NormalizeInput.fs" />
+    <Compile Include="2024\Dec2024_02.fs" />
+    <Content Include="2024\Dec2024_02A_Test.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Include="2024\Dec2024_02A.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="2024\Dec2024_01.fs" />
+    <Content Include="2024\Dec2024_01A_Test.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Include="2024\Dec2024_01A.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
     <Compile Include="2023\Dec2023_01.fs" />
     <Content Include="2023\Dec2023_01A_Test.txt">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
@@ -39,7 +54,6 @@
     <Content Include="2023\Dec2023_04A_Test.txt">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
-    <None Include="TestScript.fsx" />
     <Compile Include="2022\Dec2022_08.fs" />
     <Content Include="2022\Dec2022_08.txt">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
@@ -100,6 +114,7 @@
     <Content Include="2022\Dec2022_01A.txt">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
+    <None Include="TestScript.fsx" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
