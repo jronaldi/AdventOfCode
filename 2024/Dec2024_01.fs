@@ -1,7 +1,6 @@
 ﻿module Dec2024_01
 
 open System
-open System.Text.RegularExpressions
 open Microsoft.FSharp.Collections
 
 (* PUZZLE 1 *)
